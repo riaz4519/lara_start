@@ -11,6 +11,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <title>AdminLTE 3 | Starter</title>
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
     <!-- Theme style -->
@@ -18,8 +21,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
-<body class="hold-transition sidebar-mini">
-<div class="wrapper">
+<body class="hold-transition sidebar-mini" >
+<div class="wrapper" id="app">
 
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
@@ -77,13 +80,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                          with font-awesome or any other icon font library -->
 
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <router-link to="/dashboard" class="nav-link">
                             <i class="nav-icon fa fa-th"></i>
                             <p>
                                 DashBoard
 
                             </p>
-                        </a>
+                        </router-link>
                     </li>
 
 
@@ -112,13 +115,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <router-link to="/profile" class="nav-link">
                             <i class="nav-icon fa fa-user"></i>
                             <p>
                                 Profile
 
                             </p>
-                        </a>
+                        </router-link>
                     </li>
 
                     <li class="nav-item">
@@ -147,6 +150,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
+
+
+                    <router-view></router-view>
 
                 </div>
                 <!-- /.row -->
