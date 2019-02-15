@@ -91,7 +91,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
                     <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link ">
                             <i class="fas fa-cog "></i>
                             <p>
 
@@ -101,7 +101,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link active">
+                                <a href="#" class="nav-link">
                                     <i class="fa fa-circle-o nav-icon"></i>
                                     <p>Active Page</p>
                                 </a>
