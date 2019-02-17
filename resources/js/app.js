@@ -17,12 +17,14 @@ Vue.use(VueRouter);
 
 import Profile from './components/Profile.vue'
 import DashBoard from './components/Dashboard.vue'
+import Users from './components/Users.vue'
 
 
 let  routes = [
 
     { path:'/profile',component:Profile },
-    { path:'/dashboard',component:DashBoard }
+    { path:'/dashboard',component:DashBoard },
+    { path:'/users',component:Users }
 
 ];
 
