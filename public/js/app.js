@@ -1925,6 +1925,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -36944,7 +36973,19 @@ var staticRenderFns = [
             _c("div", { staticClass: "card-header" }, [
               _c("h3", { staticClass: "card-title" }, [_vm._v("User Table")]),
               _vm._v(" "),
-              _c("div", { staticClass: "card-tools" })
+              _c("div", { staticClass: "card-tools" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success",
+                    attrs: { "data-toggle": "modal", "data-target": "#addNew" }
+                  },
+                  [
+                    _vm._v("Add New "),
+                    _c("i", { staticClass: "fas fa-user-plus" })
+                  ]
+                )
+              ])
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "card-body table-responsive p-0" }, [
@@ -36977,13 +37018,13 @@ var staticRenderFns = [
                     _vm._v(" "),
                     _c("td", [
                       _c("a", { attrs: { href: "" } }, [
-                        _c("i", { staticClass: "fa fa-edit" })
+                        _c("i", { staticClass: "fa fa-edit blue" })
                       ]),
                       _vm._v(
                         "\n                                /\n                                "
                       ),
                       _c("a", { attrs: { href: "" } }, [
-                        _c("i", { staticClass: "fa fa-trash" })
+                        _c("i", { staticClass: "fa fa-trash red" })
                       ])
                     ])
                   ])
@@ -36992,7 +37033,85 @@ var staticRenderFns = [
             ])
           ])
         ])
-      ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "addNew",
+            tabindex: "-1",
+            role: "dialog",
+            "aria-labelledby": "addNewLabel",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass: "modal-dialog modal-dialog-centered",
+              attrs: { role: "document" }
+            },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _c("div", { staticClass: "modal-header" }, [
+                  _c(
+                    "h5",
+                    {
+                      staticClass: "modal-title",
+                      attrs: { id: "exampaddNew" }
+                    },
+                    [_vm._v("Modal title")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "close",
+                      attrs: {
+                        type: "button",
+                        "data-dismiss": "modal",
+                        "aria-label": "Close"
+                      }
+                    },
+                    [
+                      _c("span", { attrs: { "aria-hidden": "true" } }, [
+                        _vm._v("×")
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-body" }, [
+                  _vm._v("\n                    ...\n                ")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-footer" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger",
+                      attrs: { type: "button", "data-dismiss": "modal" }
+                    },
+                    [_vm._v("Close")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { type: "button" }
+                    },
+                    [_vm._v("Create")]
+                  )
+                ])
+              ])
+            ]
+          )
+        ]
+      )
     ])
   }
 ]

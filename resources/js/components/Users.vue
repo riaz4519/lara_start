@@ -8,6 +8,9 @@
 
                         <div class="card-tools">
 
+
+                            <button class="btn btn-success" data-toggle="modal" data-target="#addNew">Add New <i class="fas fa-user-plus"></i></button>
+
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -26,9 +29,9 @@
                                 <td>11-7-2014</td>
                                 <td><span class="tag tag-success">Approved</span></td>
                                 <td>
-                                    <a href=""><i class="fa fa-edit"></i></a>
+                                    <a href=""><i class="fa fa-edit blue"></i></a>
                                     /
-                                    <a href=""> <i class="fa fa-trash"></i></a>
+                                    <a href=""> <i class="fa fa-trash red"></i></a>
 
                                 </td>
                             </tr>
@@ -41,6 +44,32 @@
                 <!-- /.card -->
             </div>
         </div>
+
+
+
+        <!--modal-->
+
+        <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampaddNew">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Create</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--end modal-->
     </div>
 </template>
 
