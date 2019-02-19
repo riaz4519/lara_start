@@ -14,6 +14,17 @@ import VueRouter from  'vue-router';
 
 Vue.use(VueRouter);
 
+/*v form*/
+
+import { Form, HasError, AlertError } from 'vform'
+
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
+
+window.Form = Form;
+
+/*end vform*/
+
 
 import Profile from './components/Profile.vue'
 import DashBoard from './components/Dashboard.vue'
