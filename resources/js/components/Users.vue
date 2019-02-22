@@ -60,6 +60,13 @@
                     </div>
                     <div class="modal-body">
 
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input v-model="form.name" type="text" name="name"
+                                   class="form-control" :class="{ 'is-invalid': form.errors.has('username') }">
+                            <has-error :form="form" field="name"></has-error>
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
