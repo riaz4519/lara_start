@@ -38245,8 +38245,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.form.name,
-                              expression: "form.name"
+                              value: _vm.form.password,
+                              expression: "form.password"
                             }
                           ],
                           staticClass: "form-control",
@@ -38259,13 +38259,17 @@ var render = function() {
                             name: "password",
                             placeholder: "password"
                           },
-                          domProps: { value: _vm.form.name },
+                          domProps: { value: _vm.form.password },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.$set(_vm.form, "name", $event.target.value)
+                              _vm.$set(
+                                _vm.form,
+                                "password",
+                                $event.target.value
+                              )
                             }
                           }
                         }),
