@@ -150,7 +150,7 @@
             
           createUser:function() {
 
-              console.log(this.form);
+              this.form.post('api/user')
               
           }
                 

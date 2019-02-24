@@ -2021,7 +2021,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     createUser: function createUser() {
-      console.log(this.form);
+      this.form.post('api/user');
     }
   }
 });
