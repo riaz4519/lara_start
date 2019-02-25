@@ -21,13 +21,15 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Type</th>
+                                <th>Registered at</th>
                                 <th>Modify</th>
                             </tr>
-                            <tr>
-                                <td>183</td>
-                                <td>John Doe</td>
-                                <td>11-7-2014</td>
-                                <td><span class="tag tag-success">Approved</span></td>
+                            <tr v-for="user in users" :key="user.id">
+                                <td>{{ user.id}}</td>
+                                <td>{{ user.name}}</td>
+                                <td>{{ user.email}}</td>
+                                <td><span class="tag tag-success">{{user.type}}</span></td>
+                                <td>{{user.created_at}}</td>
                                 <td>
                                     <a href=""><i class="fa fa-edit blue"></i></a>
                                     /
@@ -141,7 +143,8 @@
                     bio:'',
                     photo:''
 
-                })
+                }),
+                users:[],
 
 
             }
@@ -152,11 +155,32 @@
 
               this.form.post('api/user')
               
-          }
+          },
+
+        loadUser:function () {
+
+              axios.get("api/user").then((response) => {
+
+                 this.users = response.data.data;
+
+                 console.log(response.data.data);
+
+
+              } )
+
+            }
                 
             
             
+        },
+        created(){
+
+            this.loadUser();
+
+
         }
+
+
 
     }
 </script>
