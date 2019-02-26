@@ -153,7 +153,18 @@
             
           createUser:function() {
 
-              this.form.post('api/user')
+              this.$Progress.start();
+
+              this.form.post('api/user');
+
+              $("#addNew").modal('hide');
+
+              toast.fire({
+                  type: 'success',
+                  title: 'User Created SuccessFully'
+              })
+
+              this.$Progress.finish();
               
           },
 
@@ -163,7 +174,6 @@
 
                  this.users = response.data.data;
 
-                 console.log(response.data.data);
 
 
               } )
@@ -176,6 +186,8 @@
         created(){
 
             this.loadUser();
+
+            setInterval(() => this.loadUser(),3000)
 
 
         }

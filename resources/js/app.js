@@ -17,6 +17,17 @@ import VueRouter from  'vue-router';
 
 Vue.use(VueRouter);
 
+/*Vue-progressbar*/
+
+import VueProgressBar from 'vue-progressbar'
+
+Vue.use(VueProgressBar, {
+    color: 'rgb(143, 255, 199)',
+    failedColor: 'red',
+    height: '3px'
+})
+
+
 /*v form*/
 
 import { Form, HasError, AlertError } from 'vform'
@@ -27,6 +38,23 @@ Vue.component(AlertError.name, AlertError)
 window.Form = Form;
 
 /*end vform*/
+
+/*sweet alert*/
+// ES6 Modules or TypeScript
+
+import Swal from 'sweetalert2';
+
+window.swal = Swal;
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000
+});
+
+window.toast = Toast;
+
 
 
 import Profile from './components/Profile.vue'
