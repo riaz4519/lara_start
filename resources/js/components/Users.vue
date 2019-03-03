@@ -31,9 +31,9 @@
                                 <td><span class="tag tag-success">{{user.type | upText}}</span></td>
                                 <td>{{user.created_at | myDate}}</td>
                                 <td>
-                                    <a href=""><i class="fa fa-edit blue"></i></a>
+                                    <a href="" ><i class="fa fa-edit blue"></i></a>
                                     /
-                                    <a href=""> <i class="fa fa-trash red"></i></a>
+                                    <a href="" @click.prevent="deleteUser(user.id)"> <i class="fa fa-trash red"></i></a>
 
                                 </td>
                             </tr>
@@ -150,24 +150,49 @@
             }
         },
         methods:{
+
+            deleteUser:function (user_id) {
+
+                swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.value) {
+                        swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                    }
+                })
+            },
             
           createUser:function() {
 
               this.$Progress.start();
 
-              this.form.post('api/user');
+              this.form.post('api/user').then(() => {
 
               Fire.$emit('afterCreate');
-
-              $("#addNew").modal('hide');
 
               toast.fire({
                   type: 'success',
                   title: 'User Created SuccessFully'
               });
 
+
               this.$Progress.finish();
-              
+
+              }).catch();
+
+
+
+
           },
 
         loadUser:function () {

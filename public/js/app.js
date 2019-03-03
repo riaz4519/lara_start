@@ -2023,32 +2023,50 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    createUser: function createUser() {
-      this.$Progress.start();
-      this.form.post('api/user');
-      Fire.$emit('afterCreate');
-      $("#addNew").modal('hide');
-      toast.fire({
-        type: 'success',
-        title: 'User Created SuccessFully'
+    deleteUser: function deleteUser(user_id) {
+      swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(function (result) {
+        if (result.value) {
+          swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+        }
       });
-      this.$Progress.finish();
     },
-    loadUser: function loadUser() {
+    createUser: function createUser() {
       var _this = this;
 
+      this.$Progress.start();
+      this.form.post('api/user').then(function () {
+        Fire.$emit('afterCreate');
+        toast.fire({
+          type: 'success',
+          title: 'User Created SuccessFully'
+        });
+
+        _this.$Progress.finish();
+      }).catch();
+    },
+    loadUser: function loadUser() {
+      var _this2 = this;
+
       axios.get("api/user").then(function (response) {
-        _this.users = response.data.data;
+        _this2.users = response.data.data;
       });
     }
   },
   created: function created() {
-    var _this2 = this;
+    var _this3 = this;
 
     this.loadUser(); //setInterval(() => this.loadUser(),3000)
 
     Fire.$on('afterCreate', function () {
-      _this2.loadUser();
+      _this3.loadUser();
     });
   }
 });
@@ -58263,7 +58281,25 @@ var render = function() {
                         _vm._v(_vm._s(_vm._f("myDate")(user.created_at)))
                       ]),
                       _vm._v(" "),
-                      _vm._m(2, true)
+                      _c("td", [
+                        _vm._m(2, true),
+                        _vm._v(
+                          "\n                                /\n                                "
+                        ),
+                        _c(
+                          "a",
+                          {
+                            attrs: { href: "" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                _vm.deleteUser(user.id)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fa fa-trash red" })]
+                        )
+                      ])
                     ])
                   })
                 ],
@@ -58593,16 +58629,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("a", { attrs: { href: "" } }, [
-        _c("i", { staticClass: "fa fa-edit blue" })
-      ]),
-      _vm._v(
-        "\n                                /\n                                "
-      ),
-      _c("a", { attrs: { href: "" } }, [
-        _c("i", { staticClass: "fa fa-trash red" })
-      ])
+    return _c("a", { attrs: { href: "" } }, [
+      _c("i", { staticClass: "fa fa-edit blue" })
     ])
   },
   function() {
@@ -72637,7 +72665,7 @@ Vue.filter('upText', function (text) {
 Vue.filter('myDate', function (created) {
   return moment__WEBPACK_IMPORTED_MODULE_0___default()(created).format('MMMM DD YYYY');
 });
-Window.Fire = new Vue();
+window.Fire = new Vue();
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

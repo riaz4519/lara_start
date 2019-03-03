@@ -10,6 +10,8 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 
+
+
 import moment from 'moment'
 
 
@@ -87,8 +89,9 @@ Vue.filter('myDate',function (created) {
 
 });
 
+window.Fire = new Vue();
 
-Window.Fire = new Vue();
+
 
 
 
