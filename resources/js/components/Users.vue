@@ -9,7 +9,7 @@
                         <div class="card-tools">
 
 
-                            <button class="btn btn-success" data-toggle="modal" data-target="#addNew">Add New <i class="fas fa-user-plus"></i></button>
+                            <button class="btn btn-success" @click="newModal">Add New <i class="fas fa-user-plus"></i></button>
 
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                                 <td><span class="tag tag-success">{{user.type | upText}}</span></td>
                                 <td>{{user.created_at | myDate}}</td>
                                 <td>
-                                    <a href="" ><i class="fa fa-edit blue"></i></a>
+                                    <a href="" @click.prevent="editModal(user)" ><i class="fa fa-edit blue"></i></a>
                                     /
                                     <a href="" @click.prevent="deleteUser(user.id)"> <i class="fa fa-trash red"></i></a>
 
@@ -60,7 +60,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form @submit.prevent="createUser">
+                    <form @submit.prevent="editMode ? updateUser() :createUser()">
                         <div class="modal-body">
 
                             <div class="form-group">
@@ -134,6 +134,8 @@
         data(){
             return {
 
+                editMode:true,
+
                 form:new Form({
 
                     name:'',
@@ -151,6 +153,31 @@
         },
         methods:{
 
+            updateUser:function () {
+
+                console.log('edit');
+
+            },
+
+            newModal:function () {
+
+                //reset the form
+
+                this.form.reset();
+
+                $('#addNew').modal('show');
+
+            },
+            editModal:function (user) {
+
+                //reset the form
+
+                this.form.fill(user);
+
+                $('#addNew').modal('show');
+
+            },
+
             deleteUser:function (user_id) {
 
                 swal.fire({
@@ -162,13 +189,35 @@
                     cancelButtonColor: '#d33',
                     confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
-                    if (result.value) {
+
+                    if (result.value){
+
+                    this.form.delete("api/user/"+user_id).then(() =>{
+
+
+
                         swal.fire(
                             'Deleted!',
                             'Your file has been deleted.',
                             'success'
-                        )
+                        );
+                        Fire.$emit('afterCreate');
+
+
+                    }).catch(()=> {
+
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>Why do I have this issue?</a>'
+                        })
+
+                    });
+
                     }
+
+
                 })
             },
             
