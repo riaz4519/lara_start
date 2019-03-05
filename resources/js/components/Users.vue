@@ -55,7 +55,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampaddNew">Modal title</h5>
+                        <h5 class="modal-title" id="exampaddNew">{{ editMode ? "Update User Info" : "Add New" }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -116,7 +116,8 @@
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Create</button>
+                            <button v-show="editMode" type="submit" class="btn btn-success">Update</button>
+                            <button v-show="!editMode"type="submit" class="btn btn-primary">Create</button>
                         </div>
                     </form>
                 </div>
@@ -134,10 +135,11 @@
         data(){
             return {
 
-                editMode:true,
+                editMode:false,
 
                 form:new Form({
 
+                    'id':'',
                     name:'',
                     email:'',
                     password:'',
@@ -155,11 +157,34 @@
 
             updateUser:function () {
 
-                console.log('edit');
+                this.$Progress.start();
+
+                this.form.put('/api/user/'+this.form.id)
+                    .then(() => {
+
+                    //success
+                        swal.fire(
+                            'Updated!',
+                            'Your Info Updated.',
+                            'success'
+                        );
+                        $('#addNew').modal('hide');
+                        Fire.$emit('afterCreate');
+                        this.$Progress.finish();
+                    })
+                    .catch(() => {
+
+                    //fail
+                        this.$Progress.fail();
+
+                    });
+
 
             },
 
             newModal:function () {
+
+                this.editMode = false;
 
                 //reset the form
 
@@ -170,6 +195,10 @@
             },
             editModal:function (user) {
 
+
+                this.editMode = true;
+
+                this.form.clear();
                 //reset the form
 
                 this.form.fill(user);

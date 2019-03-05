@@ -2008,11 +2008,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      editMode: true,
+      editMode: false,
       form: new Form({
+        'id': '',
         name: '',
         email: '',
         password: '',
@@ -2025,20 +2027,36 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     updateUser: function updateUser() {
-      console.log('edit');
+      var _this = this;
+
+      this.$Progress.start();
+      this.form.put('/api/user/' + this.form.id).then(function () {
+        //success
+        swal.fire('Updated!', 'Your Info Updated.', 'success');
+        $('#addNew').modal('hide');
+        Fire.$emit('afterCreate');
+
+        _this.$Progress.finish();
+      }).catch(function () {
+        //fail
+        _this.$Progress.fail();
+      });
     },
     newModal: function newModal() {
-      //reset the form
+      this.editMode = false; //reset the form
+
       this.form.reset();
       $('#addNew').modal('show');
     },
     editModal: function editModal(user) {
-      //reset the form
+      this.editMode = true;
+      this.form.clear(); //reset the form
+
       this.form.fill(user);
       $('#addNew').modal('show');
     },
     deleteUser: function deleteUser(user_id) {
-      var _this = this;
+      var _this2 = this;
 
       swal.fire({
         title: 'Are you sure?',
@@ -2050,7 +2068,7 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: 'Yes, delete it!'
       }).then(function (result) {
         if (result.value) {
-          _this.form.delete("api/user/" + user_id).then(function () {
+          _this2.form.delete("api/user/" + user_id).then(function () {
             swal.fire('Deleted!', 'Your file has been deleted.', 'success');
             Fire.$emit('afterCreate');
           }).catch(function () {
@@ -2065,7 +2083,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     createUser: function createUser() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.$Progress.start();
       this.form.post('api/user').then(function () {
@@ -2075,24 +2093,24 @@ __webpack_require__.r(__webpack_exports__);
           title: 'User Created SuccessFully'
         });
 
-        _this2.$Progress.finish();
+        _this3.$Progress.finish();
       }).catch();
     },
     loadUser: function loadUser() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.get("api/user").then(function (response) {
-        _this3.users = response.data.data;
+        _this4.users = response.data.data;
       });
     }
   },
   created: function created() {
-    var _this4 = this;
+    var _this5 = this;
 
     this.loadUser(); //setInterval(() => this.loadUser(),3000)
 
     Fire.$on('afterCreate', function () {
-      _this4.loadUser();
+      _this5.loadUser();
     });
   }
 });
@@ -58383,7 +58401,19 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(1),
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  { staticClass: "modal-title", attrs: { id: "exampaddNew" } },
+                  [
+                    _vm._v(
+                      _vm._s(_vm.editMode ? "Update User Info" : "Add New")
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._m(1)
+              ]),
               _vm._v(" "),
               _c(
                 "form",
@@ -58628,7 +58658,50 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _vm._m(2)
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Close")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.editMode,
+                            expression: "editMode"
+                          }
+                        ],
+                        staticClass: "btn btn-success",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Update")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.editMode,
+                            expression: "!editMode"
+                          }
+                        ],
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Create")]
+                    )
+                  ])
                 ]
               )
             ])
@@ -58661,45 +58734,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c("h5", { staticClass: "modal-title", attrs: { id: "exampaddNew" } }, [
-        _vm._v("Modal title")
-      ]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-danger",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("Close")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [_vm._v("Create")]
-      )
-    ])
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
   }
 ]
 render._withStripped = true
