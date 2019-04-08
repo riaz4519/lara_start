@@ -62,13 +62,15 @@ window.toast = Toast;
 import Profile from './components/Profile.vue'
 import DashBoard from './components/Dashboard.vue'
 import Users from './components/Users.vue'
+import Developer from './components/Developer.vue'
 
 
 let  routes = [
 
     { path:'/profile',component:Profile },
     { path:'/dashboard',component:DashBoard },
-    { path:'/users',component:Users }
+    { path:'/users',component:Users },
+    { path:'/developer',component: Developer}
 
 ];
 
@@ -107,6 +109,24 @@ window.Fire = new Vue();
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+
+//passport
+Vue.component(
+    'passport-clients',
+    require('./components/passport/Clients.vue').default
+);
+
+Vue.component(
+    'passport-authorized-clients',
+    require('./components/passport/AuthorizedClients.vue').default
+);
+
+Vue.component(
+    'passport-personal-access-tokens',
+    require('./components/passport/PersonalAccessTokens.vue').default
+);
+
+/*end of passport*/
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
